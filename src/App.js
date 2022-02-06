@@ -10,7 +10,13 @@ const choices = [
   { id: 3, name: 'scissors', component: Scissors }
 ];
 
-function App() {
+// 1. handle wins & losses
+// 2. determine the winner based on choices
+// 3. reset the game
+
+export default function App() {
+  const [ wins, setWins ] = useState(0);
+  const [ losses, setLosses ] = useState(0);
   const [ userChoice, setUserChoice ] = useState(null);
   const [ computerChoice, setComputerChoice ] = useState(null);
 
@@ -33,13 +39,13 @@ function App() {
         {/* stats here */}
         <div className="wins-losses">
           <div className="wins">
-            <span className="number">0</span>
-            <span className="text">Wins</span>
+            <span className="number">{wins}</span>
+            <span className="text">{wins === 1 ? 'Win' : 'Wins'}</span>
           </div>
 
           <div className="losses">
-            <span className="number">0</span>
-            <span className="text">Losses</span>
+            <span className="number">{losses}</span>
+            <span className="text">{losses === 1 ? 'Loss' : 'Losses'}</span>
           </div>
         </div>
       </div>
@@ -76,5 +82,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
