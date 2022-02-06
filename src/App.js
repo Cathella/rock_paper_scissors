@@ -26,7 +26,7 @@ function App() {
       </div>
 
       {/* game state popup */}
-      <div className="game-state"></div>
+      {/* <div className="game-state"></div> */}
 
       <div className="choices">
         {/* captions */}
