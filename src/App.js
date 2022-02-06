@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Rock from './icons/Rock';
 import Paper from './icons/Paper';
 import Scissors from './icons/Scissors';
 import './App.css';
 
+const choices = [
+  { id: 1, name: 'rock', component: Rock },
+  { id: 2, name: 'paper', component: Paper },
+  { id: 3, name: 'scissors', component: Scissors }
+];
+
 function App() {
+  const [ userChoice, setUserChoice ] = useState(null);
+
+  function handleUserChoice(choice) {
+    const chosenChoice = choices.find(c => c.id === choice);
+    setUserChoice(chosenChoice);
+  }
+
   return (
     <div className="app">
       {/* game info here */}
@@ -36,13 +49,13 @@ function App() {
 
         {/* buttons */}
         <div>
-          <button className="rock">
+          <button className="rock" onClick={() => handleUserChoice(1)}>
             <Rock />
           </button>
-          <button>
+          <button className="paper" onClick={() => handleUserChoice(2)}>
             <Paper />
           </button>
-          <button>
+          <button className="scissors" onClick={() => handleUserChoice(3)}>
             <Scissors />
           </button>
         </div>
