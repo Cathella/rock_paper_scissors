@@ -24,7 +24,15 @@ export default function App() {
   useEffect(() => {
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
     setComputerChoice(randomChoice);
-  }, [])
+  }, []);
+
+  function restartGame() {
+    setGameState(null);
+    setUserChoice(null);
+    
+    const randomChoice = choices[Math.floor(Math.random() * choices.length)];
+    setComputerChoice(randomChoice);
+  }
 
   function handleUserChoice(choice) {
     const chosenChoice = choices.find(c => c.id === choice);
@@ -76,9 +84,13 @@ export default function App() {
           <div>
             <div className="game-state-content">
               <p>{renderComponent(userChoice)}</p>
-              <p>you won!</p>
+              {gameState === 'win' && <p>Congrats! You won!</p>}
+              {gameState === 'lose' && <p>Sorry! You lost!</p>}
+              {gameState === 'draw' && <p>You drew!</p>}
               <p>{renderComponent(computerChoice)}</p>
             </div>
+
+            <button onClick={() => restartGame()}>Play Again</button>
           </div>
         </div>
       )}
