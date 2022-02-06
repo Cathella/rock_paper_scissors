@@ -19,6 +19,7 @@ export default function App() {
   const [ losses, setLosses ] = useState(0);
   const [ userChoice, setUserChoice ] = useState(null);
   const [ computerChoice, setComputerChoice ] = useState(null);
+  const [ gameState, setGameState ] = useState(null); // win/lose/draw
 
   useEffect(() => {
     const randomChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -28,6 +29,14 @@ export default function App() {
   function handleUserChoice(choice) {
     const chosenChoice = choices.find(c => c.id === choice);
     setUserChoice(chosenChoice);
+
+    // determine the winner
+    setGameState('win')
+  }
+
+  function renderComponent(choice) {
+    const Component = choice.component;
+    return <Component />
   }
 
   return (
@@ -51,7 +60,17 @@ export default function App() {
       </div>
 
       {/* game state popup */}
-      {/* <div className="game-state"></div> */}
+      {gameState && (
+        <div className={`game-state ${gameState}`}>
+          <div>
+            <div className="game-state-content">
+              <p>{renderComponent(userChoice)}</p>
+              <p>you won!</p>
+              <p>{renderComponent(computerChoice)}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="choices">
         {/* captions */}
