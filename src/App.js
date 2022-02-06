@@ -5,9 +5,9 @@ import Scissors from './icons/Scissors';
 import './App.css';
 
 const choices = [
-  { id: 1, name: 'rock', component: Rock },
-  { id: 2, name: 'paper', component: Paper },
-  { id: 3, name: 'scissors', component: Scissors }
+  { id: 1, name: 'rock', component: Rock, losesTo: 2 },
+  { id: 2, name: 'paper', component: Paper, losesTo: 3 },
+  { id: 3, name: 'scissors', component: Scissors, losesTo: 1 }
 ];
 
 // 1. handle wins & losses
@@ -31,7 +31,18 @@ export default function App() {
     setUserChoice(chosenChoice);
 
     // determine the winner
-    setGameState('win')
+    if (chosenChoice.losesTo === computerChoice.id) {
+      // lose
+      setLosses(losses => losses + 1);
+      setGameState('lose');
+    } else if (computerChoice.losesTo === chosenChoice.id) {
+      // win
+      setWins(wins => wins + 1);
+      setGameState('win');
+    } else if (computerChoice.id === chosenChoice.id) {
+      // draw
+      setGameState('draw');
+    }
   }
 
   function renderComponent(choice) {
